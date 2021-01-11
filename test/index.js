@@ -1,6 +1,6 @@
 describe('chaos-pass', function() {
     describe('node-rsa', function() {
-        it('create key pair', function(done) {
+        it('create key pair', async function() {
             const NodeRSA = require('node-rsa');
             const key = new NodeRSA({b: 512});
             const keyPair = key.generateKeyPair();
@@ -17,7 +17,7 @@ describe('chaos-pass', function() {
             const decrypted = keyPem.decrypt(encrypted, 'utf8');
             console.log('decrypted: ', decrypted);
 
-            return done();
+            return Promise.resolve();
         });
         it.skip('encrypt/decrypt', function() {
             const NodeRSA = require('node-rsa');
@@ -42,8 +42,8 @@ describe('chaos-pass', function() {
             await sftp.connect({
                 host: 'ptfs.chaosnet.ai',
                 // port: '8080',
-                username: 'schematical',
-                privateKey: fs.readFileSync('C:\\Users\\mlea\\Documents\\ptfs.pem')
+                username: process.env.SFTP_USERNAME,
+                privateKey: fs.readFileSync(process.env.SFTP_PEM)
             })
             console.log("CONNECTED");
             const list = await sftp.list('/ptfs.chaosnet.ai/schematical');

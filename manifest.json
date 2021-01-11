@@ -2,9 +2,24 @@
   "name": "ChaosPass",
   "version": "1.0",
   "description": "Build an Extension!",
+  "permissions": [
+    "storage",
+    "declarativeContent",
+    "activeTab"
+  ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["jquery.js","background.js"],
     "persistent": false
   },
-  "manifest_version": 3
+  "content_scripts": [{
+    "js": ["jquery.js","contentScript.js"],
+    "matches": [ "http://*/*", "https://*/*"]
+  }],
+  "page_action": {
+    "default_icon": {                    // optional
+    },
+    "default_title": "ChaosPass",      // optional; shown in tooltip
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
 }

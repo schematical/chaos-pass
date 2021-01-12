@@ -5,7 +5,9 @@
   "permissions": [
     "storage",
     "declarativeContent",
-    "activeTab"
+    "activeTab",
+    "tabs",
+    "http://*/*"
   ],
   "background": {
     "scripts": ["jquery.js","background.js"],
@@ -18,8 +20,7 @@
   "page_action": {
     "default_icon": {                    // optional
     },
-    "default_title": "ChaosPass",      // optional; shown in tooltip
-    "default_popup": "popup.html"
+    "default_title": "ChaosPass"      // optional; shown in tooltip
   },
   "manifest_version": 2
 }

@@ -19,7 +19,9 @@ chrome.runtime.onInstalled.addListener(function() {
     });
     chrome.runtime.onMessage.addListener(function(req, sender) {
         console.log("Message: ", req, sender);
+        // chrome.pageAction.setPopup({popup: "popup.html", tabId: sender.tab.id});
         chrome.pageAction.show(sender.tab.id);
+        // chrome.browserAction.show(sender.tab.id);
         chrome.pageAction.setTitle({tabId: sender.tab.id, title: req.text});
     });
 });

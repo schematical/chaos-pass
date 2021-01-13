@@ -7,7 +7,7 @@ eleInput.on('change', function (event){
 
 $(document).on('change', "input[type='password']", function(event){
     console.log("CHANGE 2");
-    chrome.runtime.sendMessage({ text: "Hello from the webpage!"})
+    chrome.runtime.sendMessage({ password: event.target.value })
 })
 $( window ).on( "unload", function() {
     console.log("!!!!!!", eleInput.val());

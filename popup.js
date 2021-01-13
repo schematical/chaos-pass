@@ -1,13 +1,10 @@
-let changeColor = document.getElementById('changeColor');
-
-changeColor.onclick = function(element) {
-    let color = element.target.value;
+$("#btnSuggestPassword").click((event)=>{
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.executeScript(
             tabs[0].id,
             {
-                file: 'contentScript.js'
+                file: 'genPassword.js'
             });
         console.log("HITT111");
     });
-};
+})

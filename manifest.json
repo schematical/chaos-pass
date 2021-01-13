@@ -7,6 +7,7 @@
     "declarativeContent",
     "activeTab",
     "tabs",
+    "contextMenus",
     "http://*/*"
   ],
   "background": {
@@ -20,7 +21,8 @@
   "page_action": {
     "default_icon": {                    // optional
     },
-    "default_title": "ChaosPass"      // optional; shown in tooltip
+    "default_title": "ChaosPass",
+    "default_popup": "popup.html"   // optional; shown in tooltip
   },
   "manifest_version": 2
 }

@@ -4,7 +4,8 @@ module.exports = {
     entry: {
         'background':'./src/background/background.js',
         'contentScript':'./src/contentScript.js',
-        'genPassword':'./src/genPassword.js'
+        'genPassword':'./src/genPassword.js',
+        'popup':'./src/popup/popup.js'
     },
     output: {
         path: path.join(__dirname, '/dist'),

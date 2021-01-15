@@ -1,3 +1,5 @@
+const Cryptr = require('cryptr');
+import ChaosSFTP from "./chaos-sftp";
 class ChaosPass{
     constructor(chrome) {
         this.chrome = chrome;
@@ -41,6 +43,7 @@ class ChaosPass{
         }
         switch(req.action){
             case('storePassword'):
+            case('setLocalCredsEncSecret'):
                 this[req.action](req, sender);
             default:
                 throw new Error("Invalid `onMessage`: " + req.action);
@@ -52,16 +55,59 @@ class ChaosPass{
         // chrome.browserAction.show(sender.tab.id);
         chrome.pageAction.setTitle({tabId: sender.tab.id, title: req.text});*/
     }
+    setLocalCredsEncSecret(req, sender){
+        if(!req.localCredsEncSecret){
+            throw new Error("Missing `localCredsEncSecret`!");
+        }
+        this.localCredsEncSecret = req.localCredsEncSecret;
+    }
     storePassword(req, sender){
-        console.log("Password: ", req, sender);
+
         if(!req.password){
             throw new Error("Missing Password!");
         }
-        let p = new Promise((resolve, reject)=>{
-            this.chrome.storage.sync.get("chaos-sftp-creds", function(config) {
-                console.log("Stored Creds: ", config);
-            });
-        })
+        if(!req.host){
+            throw new Error("Missing `host`!");
+        }
+        if(!this.localCredsEncSecret){
+            throw new Error("`localCredsEncSecret` has not been set yet");
+        }
+        let p = this.getCreds(this.localCredsEncSecret)
+            .then((creds)=>{
+                //Send creds to sftp
+                let chaosSftp = new ChaosSFTP(creds);
+                return chaosSftp.put(pass, req.host);
+            })
+            .then((results)=>{
+                console.log("Save Success: ", results);
+            })
     }
+    hasCreds(){
+        return new Promise((resolve, reject)=> {
+            this.chrome.storage.sync.get("chaos-sftp-creds",  (config) => {
+                return resolve(config.creds);
+            });
+        });
+    }
+    getCreds(secret){
+        return new Promise((resolve, reject)=> {
+            this.chrome.storage.sync.get("chaos-sftp-creds",  (config) => {
+                console.log("Stored Creds: ", config);
+                if(!config.creds){
+                    return reject(new Error("No Creds Found"));
+                }
+                const decrypted = this.getCrytper(secret).decrypt(config.creds)
+                try {
+                    return resolve(JSON.parse(decrypted));
+                }catch(err){
+                    return reject(err);
+                }
+            });
+        });
+    }
+    getCrytper(secret){
+        return new Cryptr(secret);
+    }
+
 }
 export default ChaosPass;

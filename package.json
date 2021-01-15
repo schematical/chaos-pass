@@ -19,6 +19,7 @@
   "homepage": "https://github.com/schematical/chaos-pass#readme",
   "dependencies": {
     "bootstrap": "^5.0.0-beta1",
+    "cryptr": "^6.0.2",
     "node-rsa": "^1.1.1",
     "password-generator": "^2.3.2",
     "ssh2-sftp-client": "^6.0.1"

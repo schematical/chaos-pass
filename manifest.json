@@ -11,18 +11,18 @@
     "http://*/*"
   ],
   "background": {
-    "scripts": ["jquery.js","background.js"],
+    "scripts": ["src/jquery.js","dist/background.js"],
     "persistent": false
   },
   "content_scripts": [{
-    "js": ["jquery.js","contentScript.js"],
+    "js": ["src/jquery.js","dist/contentScript.js"],
     "matches": [ "http://*/*", "https://*/*"]
   }],
   "page_action": {
     "default_icon": {                    // optional
     },
     "default_title": "ChaosPass",
-    "default_popup": "popup.html"   // optional; shown in tooltip
+    "default_popup": "src/popup/popup.html"   // optional; shown in tooltip
   },
   "manifest_version": 2
 }

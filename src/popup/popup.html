@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <title>Popup</title>
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="./popup.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<button id="btnSuggestPassword">Suggest Password</button>
+<div id="setupCredentials" style="display: none;" >
+    <form>
+
+        <textarea id="encPem">
+            {
+  "enc":{
+    "pem": ""
+  },
+
+  "sync_hosts": [
+      {
+        "type": "sftp",
+        "host": "ptfs.chaosnet.ai",
+        "port": null,
+        "username": "xxxxx",
+        "privateKey": ""
+      }
+    ]
+}
+        </textarea>
+    </form>
+</div>
+<script src="../jquery.js"></script>
+<script src="./popup.js"></script>
+</body>
+</html>

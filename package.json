@@ -4,7 +4,8 @@
   "description": "",
   "main": "background.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node .\\node_modules\\webpack\\bin\\webpack.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,14 @@
   },
   "homepage": "https://github.com/schematical/chaos-pass#readme",
   "dependencies": {
+    "bootstrap": "^5.0.0-beta1",
     "node-rsa": "^1.1.1",
     "password-generator": "^2.3.2",
     "ssh2-sftp-client": "^6.0.1"
   },
   "devDependencies": {
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"
   }
 }

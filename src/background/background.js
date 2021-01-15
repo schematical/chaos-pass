@@ -1,7 +1,8 @@
 //const ChaosSFTP = require('./chaos-sftp');
-//const ChaosPass = require('./chaos-pass');
-
-chrome.runtime.onInstalled.addListener(function() {
+import ChaosPass from '../chaos-pass';
+let chaosPass = new ChaosPass(chrome);
+chaosPass.init();
+/*chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set({color: '#3aa757'}, function() {
         console.log("The color is green.");
     });
@@ -23,9 +24,9 @@ chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         title: "ChaosPass",
         id: "ChaosPass",
-       /* onclick:(info, tab)=>{
+       /!* onclick:(info, tab)=>{
             console.log("CLICKED")
-        }*/
+        }*!/
     },function(){
 console.log("Context Menu Created");
     });
@@ -35,17 +36,17 @@ console.log("Context Menu Created");
     chrome.runtime.onMessage.addListener(function(req, sender) {
         console.log("Password: ", req, sender);
         if(req.password){
-           /* let p = new Promise((resolve, reject)=>{
+            let p = new Promise((resolve, reject)=>{
                 chrome.storage.sync.get("chaos-sftp-creds", function(config) {
                     console.log("The color is green.");
                 });
-            })*/
+            })
         }
 
-        /*
+        /!*
         // chrome.pageAction.setPopup({popup: "popup.html", tabId: sender.tab.id});
         chrome.pageAction.show(sender.tab.id);
         // chrome.browserAction.show(sender.tab.id);
-        chrome.pageAction.setTitle({tabId: sender.tab.id, title: req.text});*/
+        chrome.pageAction.setTitle({tabId: sender.tab.id, title: req.text});*!/
     });
-});
+});*/

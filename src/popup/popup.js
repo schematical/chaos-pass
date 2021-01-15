@@ -3,7 +3,7 @@ $("#btnSuggestPassword").click((event)=>{
         chrome.tabs.executeScript(
             tabs[0].id,
             {
-                file: 'genPassword.js'
+                file: 'src/genPassword.js'
             });
         console.log("HITT111");
     });

@@ -1,4 +1,5 @@
-
+import ChaosPass from "./chaos-pass";
+let chaosPass = new ChaosPass(chrome);
 var pass = '';
 var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
     'abcdefghijklmnopqrstuvwxyz0123456789@#$';
@@ -18,7 +19,11 @@ for(let i = 0; i < arrInputs.length; i++){
         console.log("FOUND ONE!", input);
     }
 }
-chrome.runtime.sendMessage({
+chaosPass.sendMessageWithResponse({
+    action: "savePassword",
     password: pass,
     host: document.location.host
+})
+.then((response)=>{
+    console.log("Password Saved:", response);
 })

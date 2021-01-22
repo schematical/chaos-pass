@@ -1,54 +1,58 @@
 <!doctype html>
 <html>
-<head>
-    <title>Popup</title>
-    <link href="../../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="./popup.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div id="divMain" >
-    <div class="mb-3" >
-        <label for="txtLocalCredsEncSecretMain" class="form-label">Local Creds Enc Secret</label>
-        <input type="text" class="form-control" id="txtLocalCredsEncSecretMain" rows="3"></input>
+    <head>
+        <title>Popup</title>
+        <link href="../../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="./popup.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="divMain">
+            <button id="btnSuggestPassword" class="btn btn-primary">Suggest Password</button>
+            <button id="btnFillPassword" class="btn btn-primary">Fill Password</button>
+        </div>
+        <div id="divCacheLocalCredsEncSecret">
+            <div class="mb-3">
+                <label for="txtLocalCredsEncSecretMain" class="form-label">Local Creds Enc Secret</label>
+                <input type="text" class="form-control" id="txtLocalCredsEncSecretMain" rows="3" />
 
-    </div>
-    <button id="btnSuggestPassword" class="btn btn-primary" >Suggest Password</button>
-    <button id="btnFillPassword" class="btn btn-primary" >Fill Password</button>
-</div>
+            </div>
+            <button id="btnCacheLocalCredsEncSecret" class="btn btn-primary">Temporarily Store</button>
+            <button id="btnClearCreds" class="btn btn-primary">Clear Creds</button>
+        </div>
 
-<div id="setupCredentials" style="display: none;" >
-    <form id="frmSetup">
-        <div class="mb-3">
-            <label for="txtEncPem" class="form-label">Encryption Pem</label>
-                <textarea class="form-control" id="txtEncPem"></textarea>
+        <div id="setupCredentials" style="display: none;">
+            <form id="frmSetup">
+                <div class="mb-3">
+                    <label for="txtEncPem" class="form-label">Encryption Pem</label>
+                    <textarea class="form-control" id="txtEncPem"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="txtHost" class="form-label">FTP Host</label>
+                    <input type="text" class="form-control" id="txtHost" rows="3"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="txtPort" class="form-label">FTP Port</label>
+                    <input type="text" class="form-control" id="txtPort" rows="3"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="txtUsername" class="form-label">FTP Username</label>
+                    <input type="text" class="form-control" id="txtUsername" rows="3"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="txtFtpPem" class="form-label">FTP PEM</label>
+                    <textarea class="form-control" id="txtFtpPem"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="txtLocalCredsEncSecret" class="form-label">Local Creds Enc Secret</label>
+                    <input type="text" class="form-control" id="txtLocalCredsEncSecret" rows="3"></input>
+                    <p>
+                        This is a shorter password that will be used to re-encrypt your pem files and FTP config locally.
+                    </p>
+                </div>
+                <button id="btnSave" class="btn btn-primary">Save</button>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="txtHost" class="form-label">FTP Host</label>
-            <input type="text" class="form-control" id="txtHost" rows="3"></input>
-        </div>
-        <div class="mb-3">
-            <label for="txtPort" class="form-label">FTP Port</label>
-            <input type="text" class="form-control" id="txtPort" rows="3"></input>
-        </div>
-        <div class="mb-3">
-            <label for="txtUsername" class="form-label">FTP Username</label>
-            <input type="text" class="form-control" id="txtUsername" rows="3"></input>
-        </div>
-        <div class="mb-3">
-            <label for="txtFtpPem" class="form-label">FTP PEM</label>
-            <textarea class="form-control" id="txtFtpPem"></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="txtLocalCredsEncSecret" class="form-label">Local Creds Enc Secret</label>
-            <input type="text" class="form-control" id="txtLocalCredsEncSecret" rows="3"></input>
-            <p>
-                This is a shorter password that will be used to re-encrypt your pem files and FTP config locally.
-            </p>
-        </div>
-        <button id="btnSave" class="btn btn-primary" >Save</button>
-    </form>
-</div>
-<script src="../jquery.js"></script>
-<script type="module" src="../../dist/popup.js"></script>
-</body>
+        <script src="../jquery.js"></script>
+        <script type="module" src="../../dist/popup.js"></script>
+    </body>
 </html>

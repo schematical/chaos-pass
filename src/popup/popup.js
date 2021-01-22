@@ -1,12 +1,48 @@
 import ChaosPass from "../chaos-pass";
 let chaosPass = new ChaosPass(chrome);
+chaosPass.initPupup();
 chaosPass.hasCreds()
     .then((hasCreds)=>{
+        $("#divMain").hide();
+        $('#divCacheLocalCredsEncSecret').hide();
+        $("#setupCredentials").hide();
         if(!hasCreds){
-            $("#divMain").hide();
             $("#setupCredentials").show();
+        }else{
+            return chaosPass.getLocalCredsEncSecret()
+                .then((localCredsEncSecret)=>{
+                    if(!localCredsEncSecret){
+                        $('#divCacheLocalCredsEncSecret').show();
+                        return;
+                    }
+                });
         }
     })
+
+$("#btnCacheLocalCredsEncSecret").click((event)=> {
+    event.preventDefault();
+    return chaosPass.setLocalCredsEncSecret( $("#txtLocalCredsEncSecretMain").val())
+    .then(()=> {
+        return chaosPass.getCreds();
+    })
+    .then((config)=>{
+        console.log("GetCreds Successfully: ", config);
+        $("#divMain").show();
+        $('#divCacheLocalCredsEncSecret').hide();
+    })
+    .catch((err) => {
+        console.error("ERROR: ", err);
+    })
+});
+$("#btnClearCreds").click((event)=> {
+    event.preventDefault();
+    return chaosPass.clearCreds()
+        .then(()=>{
+            $("#setupCredentials").hide();
+            $('#divCacheLocalCredsEncSecret').hide();
+        })
+
+});
 $("#btnSave").click((event)=> {
     event.preventDefault();
     let config = {
@@ -24,9 +60,10 @@ $("#btnSave").click((event)=> {
             }
         ]
     }
-
-    return chaosPass.setCreds($("#txtLocalCredsEncSecret").val(), config)
+    return chaosPass.setLocalCredsEncSecret($("#txtLocalCredsEncSecret").val())
         .then(()=>{
+            return chaosPass.setCreds(config)
+        }).then(()=>{
             $("#divMain").show();
             $("#setupCredentials").hide();
         })
@@ -35,15 +72,13 @@ $("#btnSave").click((event)=> {
         })
 });
 $("#btnSuggestPassword").click((event)=>{
-    chrome.runtime.sendMessage({
-        action: "setLocalCredsEncSecret",
-        localCredsEncSecret: $("#txtLocalCredsEncSecretMain").value()
-    })
+    event.preventDefault();
+
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.executeScript(
             tabs[0].id,
             {
-                file: 'src/genPassword.js'
+                file: 'dist/genPassword.js'
             });
 
     });

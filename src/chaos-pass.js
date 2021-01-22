@@ -1,4 +1,4 @@
-const Cryptr = require('cryptr');
+import Cryptr from 'cryptr';
 import ChaosSFTP from "./chaos-sftp";
 class ChaosPass{
     constructor(chrome) {
@@ -103,6 +103,21 @@ class ChaosPass{
                     return reject(err);
                 }
             });
+        });
+    }
+    setCreds(secret, config){
+        return new Promise((resolve, reject)=> {
+            const encrypted = this.getCrytper(secret).encrypt(JSON.stringify(config));
+            this.chrome.storage.sync.set(
+                { "chaos-sftp-creds": encrypted },
+                () => {
+                    try {
+                        return resolve();
+                    }catch(err){
+                        return reject(err);
+                    }
+                }
+            );
         });
     }
     getCrytper(secret){

@@ -1,30 +1,31 @@
 import ChaosPass from "../chaos-pass";
 let chaosPass = new ChaosPass(chrome);
 chaosPass.hasCreds()
-    .then((config)=>{
-        if(!config.creds){
+    .then((hasCreds)=>{
+        if(!hasCreds){
             $("#divMain").hide();
             $("#setupCredentials").show();
         }
     })
-$("#btnSuggestPassword").click((event)=> {
+$("#btnSave").click((event)=> {
+    event.preventDefault();
     let config = {
         "enc":{
-            "pem": $("#txtEncPem").value()
+            "pem": $("#txtEncPem").val()
         },
 
         "sync_hosts": [
             {
                 "type": "sftp",
-                "host": $("#txtFtpHost").value(),
-                "port": $("#txtFtpPort").value(),
-                "username": $("#txtUsername").value(),
-                "privateKey": $("#txtFtpPem").value()
+                "host": $("#txtFtpHost").val(),
+                "port": $("#txtFtpPort").val(),
+                "username": $("#txtUsername").val(),
+                "privateKey": $("#txtFtpPem").val()
             }
         ]
     }
 
-    return chaosPass.setCreds($("#txtLocalCredsEncSecret").value(), config)
+    return chaosPass.setCreds($("#txtLocalCredsEncSecret").val(), config)
         .then(()=>{
             $("#divMain").show();
             $("#setupCredentials").hide();
